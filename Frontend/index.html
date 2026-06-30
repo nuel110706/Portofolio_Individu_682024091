@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Publik</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top left, rgba(34,211,238,0.12), transparent 28%), #020617;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.78);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 20px 45px rgba(2, 6, 23, 0.35);
+        }
+
+        .section-glow {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-glow::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 0%, rgba(34,211,238,0.08) 50%, transparent 100%);
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
+        }
+
+        .section-glow:hover::before {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+
+<body class="bg-slate-950 text-slate-200 antialiased selection:bg-cyan-500 selection:text-slate-950">
+
+    <nav class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-xl border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" id="nav-brand" class="text-2xl font-extrabold text-cyan-400 tracking-tight">NWLL.</a>
+            <div class="flex space-x-8 font-semibold text-sm text-slate-300">
+                <a href="#home" class="hover:text-cyan-400 transition-colors">Home</a>
+                <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
+                <a href="#skills" class="hover:text-cyan-400 transition-colors">Skills</a>
+                <a href="#experience" class="hover:text-cyan-400 transition-colors">Experience</a>
+                <a href="#projects" class="hover:text-cyan-400 transition-colors">Projects</a>
+                <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="section-glow max-w-4xl mx-auto px-6 py-24 flex flex-col items-center justify-center text-center space-y-6 min-h-[70vh]">
+        
+        <div class="w-36 h-36 rounded-full overflow-hidden border-4 border-slate-800 shadow-2xl ring-4 ring-cyan-500/20 bg-slate-800">
+            <img id="img-profil" src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/avatar.min.svg" alt="Foto Profil nuel" class="w-full h-full object-cover">
+        </div>
+
+        <p class="text-xs font-bold text-cyan-400 tracking-widest uppercase bg-cyan-400/10 px-3 py-1 rounded-full">Selamat Datang</p>
+        <h1 class="text-4xl md:text-6xl font-extrabold text-slate-100 tracking-tight leading-tight">
+            Halo, Saya <span id="txt-nama" class="text-cyan-400">Imanuel Corputty</span>
+        </h1>
+        <div class="w-full max-w-2xl rounded-2xl border border-slate-800 bg-slate-900/70 p-5 shadow-lg shadow-cyan-500/5">
+            <p class="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400 mb-2">Bio Singkat</p>
+            <p class="text-lg md:text-xl text-slate-300 leading-relaxed">
+                <span id="txt-peran" class="font-medium text-slate-100">Seorang Mahasiswa Fakultas Teknologi Informasi Prodi Sistem Informasi Mempunyai banyak hobi</span>
+            </p>
+            <p id="txt-bio" class="mt-3 text-sm md:text-base text-slate-400 leading-relaxed"></p>
+        </div>
+        <div class="pt-4">
+            <a href="#projects" class="px-8 py-4 bg-cyan-500 text-slate-950 font-medium rounded-xl hover:bg-cyan-400 shadow-lg shadow-cyan-500/20 transition-all text-sm">Lihat Proyek Saya</a>
+        </div>
+    </section>
+
+    <section id="about" class="section-glow bg-slate-900 border-y border-slate-800 py-24">
+        <div class="max-w-4xl mx-auto px-6 text-center space-y-6">
+            <h2 class="text-3xl font-bold text-slate-100 tracking-tight">Tentang Saya</h2>
+            
+            <div class="w-28 h-28 rounded-full mx-auto overflow-hidden border border-slate-700 shadow-md bg-slate-800">
+                <img id="img-profil-about" src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/avatar.min.svg" alt="About Nuel" class="w-full h-full object-cover">
+            </div>
+
+            <div class="mx-auto max-w-3xl rounded-2xl border border-slate-800 bg-slate-950/70 p-6 md:p-8 text-left shadow-lg shadow-cyan-500/5">
+                <p class="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-400 mb-3">Tentang Saya</p>
+                <p id="about-description" class="text-slate-400 text-base leading-relaxed">
+                    Saya adalah pengembang yang terus memperluas kemampuan di bidang teknologi, desain sistem, dan pengembangan aplikasi.
+                </p>
+            </div>
+            <div class="pt-2">
+                <a href="#contact" class="inline-block px-6 py-3 bg-slate-800 text-slate-100 font-medium rounded-xl text-sm hover:bg-slate-700 transition-colors">Hubungi Saya</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section-glow py-24 bg-slate-950">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-slate-100 tracking-tight mb-4">Keahlian</h2>
+            <p class="text-center text-slate-400 text-sm mb-16">Teknologi dan keahlian analisis data yang saya kuasai.</p>
+            <div id="container-skills" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+        </div>
+    </section>
+
+    <section id="experience" class="section-glow py-24 bg-slate-900 border-t border-slate-800">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-slate-100 tracking-tight mb-16">Pengalaman</h2>
+            <div class="relative border-l-2 border-slate-700 ml-4 md:ml-32 space-y-12" id="container-experience"></div>
+        </div>
+    </section>
+
+    <section id="projects" class="section-glow py-24 bg-slate-950 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center text-slate-100 tracking-tight mb-16">Proyek Saya</h2>
+            <div id="container-projects" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-glow max-w-xl mx-auto px-6 py-24 text-center space-y-8 glass-card rounded-3xl my-16 border border-slate-800 shadow-2xl">
+        <div>
+            <h2 class="text-3xl font-bold text-slate-100 tracking-tight">Hubungi Saya</h2>
+            <p class="text-sm text-slate-400 mt-2">Tertarik untuk berkolaborasi? Kirimkan pesan Anda di bawah ini.</p>
+        </div>
+        <form onsubmit="kirimEmail(event)" class="space-y-4 text-left">
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Nama Anda</label>
+                <input type="text" id="nama-pengirim" required placeholder="Masukkan nama lengkap" class="w-full px-4 py-3 border border-slate-700 bg-slate-800 text-sm rounded-xl focus:outline-none focus:border-cyan-500 transition-colors text-slate-100">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Email Anda</label>
+                <input type="email" id="email-pengirim" required placeholder="nama@example.com" class="w-full px-4 py-3 border border-slate-700 bg-slate-800 text-sm rounded-xl focus:outline-none focus:border-cyan-500 transition-colors text-slate-100">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Pesan Anda</label>
+                <textarea id="pesan-email" rows="4" required placeholder="Tulis pesan Anda di sini..." class="w-full px-4 py-3 border border-slate-700 bg-slate-800 text-sm rounded-xl focus:outline-none focus:border-cyan-500 transition-colors text-slate-100"></textarea>
+            </div>
+            <button type="submit" class="w-full py-3.5 bg-cyan-500 text-slate-950 font-semibold text-sm rounded-xl hover:bg-cyan-400 transition-all shadow-md shadow-cyan-500/10 cursor-pointer">
+                Kirim Pesan
+            </button>
+        </form>
+    </section>
+
+    <footer class="bg-slate-950 py-8 text-center text-xs text-slate-500 border-t border-slate-800">
+        <p>&copy; 2026 Imanuel Corputty. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const API_URL = 'http://127.0.0.1:5000';
+
+        // 1. FUNGSI KIRIM EMAIL VIA RESEND API
+        async function kirimEmail(e) {
+            e.preventDefault();
+            const btnKirim = e.target.querySelector('button[type="submit"]');
+            const teksAsli = btnKirim.innerText;
+            btnKirim.innerText = "Mengirim...";
+            btnKirim.disabled = true;
+
+            const nama = document.getElementById('nama-pengirim').value;
+            const email = document.getElementById('email-pengirim').value;
+            const pesan = document.getElementById('pesan-email').value;
+
+            try {
+                const res = await fetch(`${API_URL}/api/contact`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nama: nama, email: email, message: pesan })
+                });
+                const jsonResponse = await res.json();
+                if (res.ok || (jsonResponse && jsonResponse.status === "sukses")) {
+                    alert('Sukses! Pesan Anda berhasil dikirim.');
+                    document.getElementById('nama-pengirim').value = '';
+                    document.getElementById('email-pengirim').value = '';
+                    document.getElementById('pesan-email').value = '';
+                } else {
+                    alert('Gagal mengirim pesan.');
+                }
+            } catch (err) {
+                console.error(err);
+            } finally {
+                btnKirim.innerText = teksAsli;
+                btnKirim.disabled = false;
+            }
+        }
+
+        function dapatkanIkonMurni(nama) {
+            const txt = nama.toLowerCase();
+            if (txt.includes('python')) return '<i class="fa-brands fa-python text-blue-500 text-2xl w-10 text-center"></i>';
+            if (txt.includes('sql') || txt.includes('database')) return '<i class="fa-solid fa-database text-blue-600 text-2xl w-10 text-center"></i>';
+            if (txt.includes('flask') || txt.includes('backend')) return '<i class="fa-solid fa-server text-blue-700 text-2xl w-10 text-center"></i>';
+            if (txt.includes('html') || txt.includes('css')) return '<i class="fa-brands fa-html5 text-orange-500 text-2xl w-10 text-center"></i>';
+            if (txt.includes('js') || txt.includes('javascript')) return '<i class="fa-brands fa-js text-yellow-500 text-2xl w-10 text-center"></i>';
+            if (txt.includes('git')) return '<i class="fa-brands fa-git-alt text-orange-600 text-2xl w-10 text-center"></i>';
+            return '<i class="fa-solid fa-chart-line text-blue-500 text-2xl w-10 text-center"></i>';
+        }
+
+        function dapatkanIkonProyek(nama) {
+            const txt = nama.toLowerCase();
+            if (txt.includes('inventaris') || txt.includes('manajemen')) return '<i class="fa-solid fa-boxes-stacked text-5xl text-slate-300"></i>';
+            if (txt.includes('api') || txt.includes('mobile')) return '<i class="fa-solid fa-code-branch text-5xl text-slate-300"></i>';
+            if (txt.includes('scraper') || txt.includes('harga')) return '<i class="fa-solid fa-spider text-5xl text-slate-300"></i>';
+            return '<i class="fa-solid fa-chart-pie text-5xl text-slate-300"></i>';
+        }
+
+        // 2. FUNGSI UTAMA LOAD DATA PORTOFOLIO
+        async function loadDataPortofolio() {
+            try {
+                // A. Ambil Data Profil & Terapkan ke img tag fisik
+                const resProfil = await fetch(`${API_URL}/api/profile`);
+                if (resProfil.ok) {
+                    const data = await resProfil.json();
+                    if (data.nama) {
+                        document.getElementById('txt-nama').innerText = data.nama;
+                        document.getElementById('txt-peran').innerText = data.peran || '';
+                        document.getElementById('txt-bio').innerText = data.bio || '';
+
+                        const aboutDescription = document.getElementById('about-description');
+                        if (aboutDescription) {
+                            const aboutText = data.about_description || data.deskripsi_tentang_saya || data.bio || 'Saya adalah pengembang yang terus memperluas kemampuan di bidang teknologi, desain sistem, dan pengembangan aplikasi.';
+                            aboutDescription.innerText = aboutText;
+                        }
+                        
+                        // Menembak Foto Profil di Section Home
+                        const imgElement = document.getElementById('img-profil');
+                        if (imgElement && data.foto) {
+                            imgElement.src = data.foto;
+                        }
+                        
+                        // Menembak Foto Profil di Section About
+                        const imgAboutElement = document.getElementById('img-profil-about');
+                        if (imgAboutElement && data.foto) {
+                            imgAboutElement.src = data.foto;
+                        }
+                    }
+                }
+
+                // B. Ambil Data Skills
+                const resSkills = await fetch(`${API_URL}/api/admin/skills`);
+                if (resSkills.ok) {
+                    const json = await resSkills.json();
+                    document.getElementById('container-skills').innerHTML = json.data.map(s => `
+                        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-5 flex items-center space-x-4 hover:shadow-lg hover:border-cyan-500/40 transition-all duration-300">
+                            ${dapatkanIkonMurni(s.nama_skill)}
+                            <span class="font-semibold text-slate-200 text-sm">${s.nama_skill}</span>
+                        </div>
+                    `).join('');
+                }
+
+                // C. Ambil Data Experience
+                const resExp = await fetch(`${API_URL}/api/experience`);
+                if (resExp.ok) {
+                    const data = await resExp.json();
+                    document.getElementById('container-experience').innerHTML = data.map(e => `
+                        <div class="relative pl-8 md:pl-0">
+                            <div class="absolute -left-[11px] top-1.5 bg-cyan-500 w-5 h-5 rounded-full border-4 border-slate-900 shadow-xs"></div>
+                            <div class="grid md:grid-cols-4 gap-2 md:gap-8">
+                                <div class="md:text-right pt-1">
+                                    <span class="text-sm font-bold text-cyan-400 bg-cyan-400/10 px-3 py-1 rounded-md inline-block">
+                                        ${e.tahun_mulai || '2025'} - ${e.tahun_selesai || 'Sekarang'}
+                                    </span>
+                                </div>
+                                <div class="md:col-span-3 bg-slate-900/80 border border-slate-800 rounded-xl p-6 hover:border-cyan-500/40 transition-all duration-300 space-y-1">
+                                    <h3 class="text-lg font-bold text-slate-100">${e.posisi}</h3>
+                                    <p class="text-sm font-semibold text-cyan-400">${e.perusahaan}</p>
+                                    <p class="text-xs text-slate-400 leading-relaxed pt-2">${e.deskripsi || 'Tidak ada deskripsi.'}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                // D. Ambil Data Projects
+                const resProj = await fetch(`${API_URL}/api/admin/projects`);
+                if (resProj.ok) {
+                    const json = await resProj.json();
+                    document.getElementById('container-projects').innerHTML = json.data.map(p => {
+                        const linkGambar = p.gambar_proyek || p.foto || p.gambar || '';
+                        return `
+                            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between min-h-[440px] hover:shadow-xl hover:border-cyan-500/40 transition-all duration-300 group">
+                                <div class="space-y-4">
+                                    <div class="w-full h-44 bg-slate-800 border border-slate-700 rounded-xl flex items-center justify-center overflow-hidden">
+                                        ${linkGambar ? `<img src="${linkGambar}" class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300">` : dapatkanIkonProyek(p.nama_proyek)}
+                                    </div>
+                                    <h3 class="text-xl font-bold text-slate-100 tracking-tight pt-1">${p.nama_proyek}</h3>
+                                    <p class="text-slate-400 text-xs leading-relaxed">${p.deskripsi || 'Tidak ada deskripsi proyek.'}</p>
+                                </div>
+                                <div class="space-y-4 pt-6">
+                                    <div class="flex gap-2 flex-wrap">
+                                        <span class="px-2.5 py-1 bg-cyan-400/10 text-cyan-400 text-[10px] font-bold rounded-md">Business</span>
+                                        <span class="px-2.5 py-1 bg-cyan-400/10 text-cyan-400 text-[10px] font-bold rounded-md">Data Analysis</span>
+                                        <span class="px-2.5 py-1 bg-cyan-400/10 text-cyan-400 text-[10px] font-bold rounded-md">SQL</span>
+                                    </div>
+                                    <div class="flex gap-5 text-xs font-bold text-slate-400 border-t border-slate-800 pt-4">
+                                        <a href="${p.link_proyek || '#'}" target="_blank" class="hover:text-cyan-400 flex items-center gap-1.5"><i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> Demo</a>
+                                        <a href="#" class="hover:text-cyan-400 flex items-center gap-1.5"><i class="fa-regular fa-file-code"></i> Docs</a>
+                                        <a href="#" class="hover:text-cyan-400 flex items-center gap-1.5"><i class="fa-brands fa-github"></i> Code</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            } catch (err) {
+                console.error("Gagal mengambil data:", err);
+            }
+        }
+
+        window.onload = loadDataPortofolio;
+    </script>
+</body>
+
+</html>

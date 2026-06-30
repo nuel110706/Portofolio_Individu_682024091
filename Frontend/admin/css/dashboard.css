@@ -1,0 +1,35 @@
+@import "https://cdn.jsdelivr.net/npm/tailwindcss@4/index.css";
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.nav-link {
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+    transform: translateX(2px);
+    background-color: rgba(255, 255, 255, 0.08);
+    color: white;
+}
+
+.stat-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #2563eb 0%, #4f46e5 100%);
+}
+
+::selection {
+    background: #2563eb;
+    color: white;
+}
