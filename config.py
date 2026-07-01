@@ -5,7 +5,8 @@ load_dotenv()
 
 class Config:
     TIDB_HOST = os.getenv('TIDB_HOST')
-    TIDB_PORT = int(os.getenv('TIDB_PORT', 4000))
+    raw_tidb_port = os.getenv('TIDB_PORT', '4000').strip()
+    TIDB_PORT = int(raw_tidb_port) if raw_tidb_port else 4000
     TIDB_USER = os.getenv('TIDB_USER')
     TIDB_PASSWORD = os.getenv('TIDB_PASSWORD')
     TIDB_DATABASE = os.getenv('TIDB_DATABASE', 'test')

@@ -1,9 +1,17 @@
 import os
 import sys
 from flask import Flask, jsonify, request
-from flask_cors import CORS
 from dotenv import load_dotenv
-import resend
+
+try:
+    from flask_cors import CORS
+except ImportError:  # pragma: no cover - fallback for fresh deployments
+    CORS = None
+
+try:
+    import resend
+except ImportError:  # pragma: no cover - fallback for fresh deployments
+    resend = None
 
 # --- 1. MUAT VARIABEL LINGKUNGAN DARI FILE .ENV ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -31,7 +39,10 @@ from Backend.utama.utama import utama_bp
 app = Flask(__name__, static_folder='Frontend', static_url_path='')
 app.config.from_object(Config)
 app.secret_key = os.getenv("SECRET_KEY", "bintang-rahasia-pa-2026")
-CORS(app)
+if CORS is not None:
+    CORS(app)
+else:
+    app.logger.warning("flask_cors is not installed; CORS support is disabled")
 
 # --- 5. REGISTER BLUEPRINT BACKEND API ---
 app.register_blueprint(login_bp)
@@ -79,6 +90,9 @@ def send_contact_email():
         nama_pengirim = data.get('nama', 'Anonim')
         email_pengirim = data.get('email', 'tidak-ada-email@example.com')
         pesan = data.get('message', '')
+
+        if resend is None:
+            return jsonify({"status": "gagal", "pesan": "Library Resend belum tersedia di environment ini"}), 500
 
         # Konfigurasi API Key Resend dari file .env
         resend.api_key = os.getenv("RESEND_API_KEY")
