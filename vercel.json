@@ -1,27 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/**/*.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "Frontend/**",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/index.py"
-    },
-    {
-      "src": "/admin/(.*)",
-      "dest": "/Frontend/admin/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/Frontend/$1"
-    }
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/admin/login", "destination": "/Frontend/admin/login.html" }
   ]
 }
