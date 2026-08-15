@@ -1,85 +1,84 @@
 import os
 import sys
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from dotenv import load_dotenv
 
 try:
     from flask_cors import CORS
-except ImportError:  # pragma: no cover - fallback for fresh deployments
+except ImportError:
     CORS = None
 
 try:
     import resend
-except ImportError:  # pragma: no cover - fallback for fresh deployments
+except ImportError:
     resend = None
 
-# --- 1. MUAT VARIABEL LINGKUNGAN DARI FILE .ENV ---
+# --- 1. MUAT VARIABEL LINGKUNGAN ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
-# --- 2. FORCE SYSTEM PYTHON UNTUK MENEMUKAN FOLDER BACKEND ---
-BACKEND_DIR = os.path.join(BASE_DIR, 'Backend')
-if BACKEND_DIR not in sys.path:
-    sys.path.insert(0, BACKEND_DIR)
+# --- 2. SET PYTHON PATH UNTUK BACKEND ---
+BACKEND_DIR = os.path.join(BASE_DIR, '..', 'Backend')  # ✅ PERBAIKAN PATH
+sys.path.insert(0, BACKEND_DIR)
+sys.path.insert(0, BASE_DIR)
 
-from config import Config
-from model import get_db_connection
-
-# --- 3. IMPORT BLUEPRINT BACKEND ---
-from Backend.admin.login import login_bp
-from Backend.admin.dashboard import dashboard_bp
-from Backend.admin.profiles import profiles_bp
-from Backend.admin.skills import skills_bp
-from Backend.admin.experience import experience_bp
-from Backend.admin.projects import projects_bp
-from Backend.admin.upload import upload_bp
-from Backend.utama.utama import utama_bp
-
-# --- 4. INISIALISASI FLASK ---
-app = Flask(__name__, static_folder='Frontend', static_url_path='')
-app.config.from_object(Config)
+# --- 3. INISIALISASI FLASK ---
+FRONTEND_DIR = os.path.join(BASE_DIR, '..', 'Frontend')  # ✅ PERBAIKAN PATH
+app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path='')
 app.secret_key = os.getenv("SECRET_KEY", "bintang-rahasia-pa-2026")
+
 if CORS is not None:
     CORS(app)
-else:
-    app.logger.warning("flask_cors is not installed; CORS support is disabled")
 
-# --- 5. REGISTER BLUEPRINT BACKEND API ---
-app.register_blueprint(login_bp)
-app.register_blueprint(dashboard_bp)
-app.register_blueprint(profiles_bp)
-app.register_blueprint(skills_bp)
-app.register_blueprint(experience_bp)
-app.register_blueprint(projects_bp)
-app.register_blueprint(upload_bp)
-app.register_blueprint(utama_bp) 
+# --- 4. IMPORT BLUEPRINT (DENGAN ERROR HANDLING) ---
+try:
+    from admin.login import login_bp
+    from admin.dashboard import dashboard_bp
+    from admin.profiles import profiles_bp
+    from admin.skills import skills_bp
+    from admin.experience import experience_bp
+    from admin.projects import projects_bp
+    from admin.upload import upload_bp
+    from utama.utama import utama_bp
+    
+    # Register blueprints
+    app.register_blueprint(login_bp)
+    app.register_blueprint(dashboard_bp)
+    app.register_blueprint(profiles_bp)
+    app.register_blueprint(skills_bp)
+    app.register_blueprint(experience_bp)
+    app.register_blueprint(projects_bp)
+    app.register_blueprint(upload_bp)
+    app.register_blueprint(utama_bp)
+except ImportError as e:
+    app.logger.error(f"Error importing blueprints: {str(e)}")
 
-# --- 6. RUTE ROUTING VIEW FRONTEND ---
+# --- 5. RUTE FRONTEND ---
 @app.route('/admin/login')
 def login_page():
-    return app.send_static_file('admin/login.html')
+    return send_from_directory(FRONTEND_DIR, 'admin/login.html')
 
 @app.route('/admin/dashboard')
 def dashboard_page():
-    return app.send_static_file('admin/dashboard.html')
+    return send_from_directory(FRONTEND_DIR, 'admin/dashboard.html')
 
 @app.route('/admin/profiles')
 def profiles_page():
-    return app.send_static_file('admin/profiles.html')
+    return send_from_directory(FRONTEND_DIR, 'admin/profiles.html')
 
 @app.route('/admin/skills')
 def skills_page():
-    return app.send_static_file('admin/skills.html')
+    return send_from_directory(FRONTEND_DIR, 'admin/skills.html')
 
 @app.route('/admin/projects')
 def projects_page():
-    return app.send_static_file('admin/projects.html')
+    return send_from_directory(FRONTEND_DIR, 'admin/projects.html')
 
 @app.route('/admin/experience')
 def experience_page():
-    return app.send_static_file('admin/experience.html')
+    return send_from_directory(FRONTEND_DIR, 'admin/experience.html')
 
-# --- 7. ENDPOINT FORMULIR KONKAT (MURNI KIRIM EMAIL VIA RESEND API) ---
+# --- 6. ENDPOINT CONTACT FORM ---
 @app.route('/api/contact', methods=['POST'])
 def send_contact_email():
     try:
@@ -92,19 +91,16 @@ def send_contact_email():
         pesan = data.get('message', '')
 
         if resend is None:
-            return jsonify({"status": "gagal", "pesan": "Library Resend belum tersedia di environment ini"}), 500
+            return jsonify({"status": "gagal", "pesan": "Library Resend belum tersedia"}), 500
 
-        # Konfigurasi API Key Resend dari file .env
         resend.api_key = os.getenv("RESEND_API_KEY")
         
         if not resend.api_key:
-            return jsonify({"status": "gagal", "pesan": "API Key Resend tidak ditemukan di .env"}), 500
+            return jsonify({"status": "gagal", "pesan": "API Key Resend tidak ditemukan"}), 500
 
-        # KUNCI BIAR JADI: "from" harus menggunakan domain bawaan resend 'onboarding@resend.dev'
-        # Dan "to" HARUS berupa email yang Anda gunakan saat mendaftar akun Resend tersebut.
         r = resend.Emails.send({
             "from": "Portfolio Contact <onboarding@resend.dev>",
-            "to": "nuelcorputty@gmail.com",  # <--- Ganti dengan email utama akun Resend Anda jika berbeda
+            "to": "nuelcorputty@gmail.com",
             "subject": f"Pesan Portofolio Baru dari {nama_pengirim}",
             "html": f"""
                 <h3>Ada Pesan Masuk dari Website Portofolio!</h3>
@@ -117,7 +113,7 @@ def send_contact_email():
         
         return jsonify({
             "status": "sukses", 
-            "pesan": "Pesan berhasil dikirim! Silakan periksa kotak masuk (Inbox/Spam) Gmail Anda.",
+            "pesan": "Pesan berhasil dikirim!",
             "id": r.get('id')
         }), 200
 
@@ -125,6 +121,15 @@ def send_contact_email():
         print(f"[Error Resend API]: {str(e)}")
         return jsonify({"status": "gagal", "pesan": str(e)}), 500
 
-# --- BLOK UTAMA JALANNYA PROGRAM ---
+# --- 7. HEALTH CHECK ENDPOINT ---
+@app.route('/health', methods=['GET'])
+def health():
+    return jsonify({"status": "ok", "message": "Server is running"}), 200
+
+# --- JALANKAN SERVER ---
 if __name__ == '__main__':
-    app = Flask(__name__, template_folder='../Frontend', static_folder='../Frontend')
+    app.run(debug=False)
+
+# --- WSGI HANDLER UNTUK VERCEL ---
+def handler(request):
+    return app(request)
