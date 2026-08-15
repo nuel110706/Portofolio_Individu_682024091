@@ -1,6 +1,15 @@
 {
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/admin/login", "destination": "/Frontend/admin/login.html" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.py"
+    }
   ]
 }

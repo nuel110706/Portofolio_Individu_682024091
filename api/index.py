@@ -1,8 +1,7 @@
 import os
-import sys
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-if ROOT not in sys.path:
-    sys.path.insert(0, ROOT)
-
+from flask import Flask
 from app import app
+
+if __name__ == '__main__':
+    app = Flask(__name__, template_folder='../Frontend', static_folder='../Frontend')
